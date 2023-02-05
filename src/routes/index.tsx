@@ -6,7 +6,7 @@ import { Profile } from '../Features/Profile/Profile';
 
 export const AppRoutes = () => {
   // TODO Временно , пока нет авторизации + сделать экран лоадинга
-  const isAuth = true;
+  const isAuth = false;
 
   const commonRoutes = [{ path: '/', element: <Profile /> }];
   const routes = isAuth ? protectedRoutes : publicRoutes;
