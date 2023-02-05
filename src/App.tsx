@@ -1,11 +1,7 @@
-import { HashRouter, Route, Routes } from 'react-router-dom';
-import {
-  ColorScheme,
-  ColorSchemeProvider,
-  MantineProvider,
-} from '@mantine/core';
-import { useState } from 'react';
+import { Route, Routes } from 'react-router-dom';
+import { RootProvider } from './providers/providers';
 import { MainLayout } from './Components';
+import { AppRoutes } from './routes';
 
 const App = () => {
   return (
@@ -17,23 +13,9 @@ const App = () => {
 };
 
 export const WrappedApp = () => {
-  const [colorScheme, setColorScheme] = useState<ColorScheme>('dark');
-  const toggleColorScheme = (value?: ColorScheme) =>
-    setColorScheme(value || (colorScheme === 'dark' ? 'light' : 'dark'));
   return (
-    <HashRouter>
-      <ColorSchemeProvider
-        colorScheme={colorScheme}
-        toggleColorScheme={toggleColorScheme}
-      >
-        <MantineProvider
-          theme={{ colorScheme }}
-          withGlobalStyles
-          withNormalizeCSS
-        >
-          <App />
-        </MantineProvider>
-      </ColorSchemeProvider>
-    </HashRouter>
+    <RootProvider>
+      <AppRoutes />
+    </RootProvider>
   );
 };
