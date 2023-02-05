@@ -1,15 +1,13 @@
 import { Navigate } from 'react-router-dom';
-import { Registration } from '../Features/Auth/Registration';
-import Login from '../Features/Auth/Login';
 
 export const publicRoutes = [
   {
     path: '/registration',
-    element: <Registration />,
+    element: 'reg',
   },
   {
     path: '/auth',
-    element: <Login />,
+    element: 'login',
   },
   { path: '*', element: <Navigate to="." /> },
 ];

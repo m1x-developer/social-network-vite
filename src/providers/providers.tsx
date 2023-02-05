@@ -5,7 +5,6 @@ import {
   MantineProvider,
 } from '@mantine/core';
 import { BrowserRouter } from 'react-router-dom';
-import { AuthProvider } from './AuthProvider';
 
 export const RootProvider = ({ children }: any) => {
   const [colorScheme, setColorScheme] = useState<ColorScheme>('dark');
@@ -23,7 +22,7 @@ export const RootProvider = ({ children }: any) => {
           withGlobalStyles
           withNormalizeCSS
         >
-          <AuthProvider>{children}</AuthProvider>
+          {children}
         </MantineProvider>
       </ColorSchemeProvider>
     </BrowserRouter>
