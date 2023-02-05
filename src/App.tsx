@@ -1,20 +1,39 @@
 import { HashRouter, Route, Routes } from 'react-router-dom';
-import Home from './pages/Home';
-import NotFound from './pages/NotFound';
+import {
+  ColorScheme,
+  ColorSchemeProvider,
+  MantineProvider,
+} from '@mantine/core';
+import { useState } from 'react';
+import { MainLayout } from './Components';
 
-export function App() {
+const App = () => {
   return (
     <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="*" element={<NotFound />} />
+      <Route path="/" element={<MainLayout />} />
+      <Route path="*" element="12222" />
     </Routes>
   );
-}
+};
 
-export function WrappedApp() {
+export const WrappedApp = () => {
+  const [colorScheme, setColorScheme] = useState<ColorScheme>('dark');
+  const toggleColorScheme = (value?: ColorScheme) =>
+    setColorScheme(value || (colorScheme === 'dark' ? 'light' : 'dark'));
   return (
     <HashRouter>
-      <App />
+      <ColorSchemeProvider
+        colorScheme={colorScheme}
+        toggleColorScheme={toggleColorScheme}
+      >
+        <MantineProvider
+          theme={{ colorScheme }}
+          withGlobalStyles
+          withNormalizeCSS
+        >
+          <App />
+        </MantineProvider>
+      </ColorSchemeProvider>
     </HashRouter>
   );
-}
+};
