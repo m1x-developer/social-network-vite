@@ -1,5 +1,3 @@
-import { Navigate } from 'react-router-dom';
-
 export const publicRoutes = [
   {
     path: '/registration',
@@ -9,5 +7,5 @@ export const publicRoutes = [
     path: '/auth',
     element: 'login',
   },
-  { path: '*', element: <Navigate to="." /> },
+  // { path: '*', element: <Navigate to="." /> },
 ];
