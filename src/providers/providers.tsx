@@ -1,10 +1,12 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import {
   ColorScheme,
   ColorSchemeProvider,
   MantineProvider,
 } from '@mantine/core';
 import { BrowserRouter } from 'react-router-dom';
+import { ChatContextProvider } from './ChatContex';
+import { AuthContextProvider } from './AuthContext';
 
 export const RootProvider = ({ children }: any) => {
   const [colorScheme, setColorScheme] = useState<ColorScheme>('dark');
@@ -12,19 +14,23 @@ export const RootProvider = ({ children }: any) => {
     setColorScheme(value || (colorScheme === 'dark' ? 'light' : 'dark'));
 
   return (
-    <BrowserRouter>
-      <ColorSchemeProvider
-        colorScheme={colorScheme}
-        toggleColorScheme={toggleColorScheme}
-      >
-        <MantineProvider
-          theme={{ colorScheme }}
-          withGlobalStyles
-          withNormalizeCSS
-        >
-          {children}
-        </MantineProvider>
-      </ColorSchemeProvider>
-    </BrowserRouter>
+    <AuthContextProvider>
+      <ChatContextProvider>
+        <BrowserRouter>
+          <ColorSchemeProvider
+            colorScheme={colorScheme}
+            toggleColorScheme={toggleColorScheme}
+          >
+            <MantineProvider
+              theme={{ colorScheme }}
+              withGlobalStyles
+              withNormalizeCSS
+            >
+              {children}
+            </MantineProvider>
+          </ColorSchemeProvider>
+        </BrowserRouter>
+      </ChatContextProvider>
+    </AuthContextProvider>
   );
 };

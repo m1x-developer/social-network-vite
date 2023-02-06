@@ -1,10 +1,13 @@
 import { useState } from 'react';
 import { Navbar } from '@mantine/core';
 import {
+  IconFriends,
   IconGauge,
   IconLogout,
   IconMessages,
   IconMusic,
+  IconPhoneCall,
+  IconPhoto,
   IconSettings,
   IconSwitchHorizontal,
   IconUser,
@@ -16,6 +19,9 @@ import { ProfileCard } from './Profile/Profile';
 
 const data = [
   { icon: IconUser, label: 'My Profile', to: '/profile/' },
+  { icon: IconFriends, label: 'Friends', to: '/friends/' },
+  { icon: IconPhoto, label: 'Photos', to: '/photos/' },
+  { icon: IconPhoneCall, label: 'Calls', to: '/calls/' },
   { icon: IconMessages, label: 'Messages', to: '/messages/' },
   { icon: IconGauge, label: 'Feed', to: '/feed/' },
   { icon: IconMusic, label: 'Music', to: '/music/' },
