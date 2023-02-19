@@ -9,9 +9,11 @@ import {
   Title,
 } from '@mantine/core';
 import { useNavigate } from 'react-router-dom';
+import { doc, setDoc } from 'firebase/firestore';
 import { useAuth } from '../../../providers/AuthContext';
 import { useRegistrationStyles } from './Registration.css';
 import { SignUpFormValues } from '../types';
+import { db } from '../../../firebase';
 
 export const Registration = () => {
   const { classes } = useRegistrationStyles();
@@ -29,10 +31,18 @@ export const Registration = () => {
   const { signUp } = useAuth();
   const onSubmitForm = async (values: SignUpFormValues) => {
     try {
-      const data = await signUp(values.email, values.password);
+      const res = await signUp(values.email, values.password);
+
+      await setDoc(doc(db, 'users', res.user.uid), {
+        uid: res.user.uid,
+        displayName: null,
+        email: res.user.email,
+        photoURL: null,
+      });
+
       try {
         navigate('/profile/');
-        console.log('🚀 ~ signup ok ', data);
+        console.log('🚀 ~ signup ok ', res);
       } catch (error) {
         console.log(`🚀 ~ signup error`, error);
       }
