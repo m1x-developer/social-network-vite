@@ -1,35 +1,59 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { signInWithEmailAndPassword } from 'firebase/auth';
 import {
-  Anchor,
   Button,
-  Checkbox,
+  Group,
   Paper,
   PasswordInput,
-  Text,
   TextInput,
   Title,
 } from '@mantine/core';
-import { auth } from '../../../firebase';
+import { useNavigate } from 'react-router-dom';
+import { useForm } from '@mantine/form';
 import { useRegistrationStyles } from '../Registration/Registration.css';
+import { SignUpFormValues } from '../types';
+import { useAuth } from '../../../providers/AuthContext';
 
 export const Login = () => {
   const { classes } = useRegistrationStyles();
 
-  const [err, setErr] = useState(false);
+  const { signIn } = useAuth();
+  const [formError, setFormError] = useState<string>('');
+  const [formSubmitting, setFormSubmitting] = useState<boolean>(false);
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const email = e.target[0].value;
-    const password = e.target[1].value;
+  const form = useForm({
+    initialValues: {
+      email: '',
+      password: '',
+    },
+  });
 
+  const onSubmitForm = async (values: SignUpFormValues) => {
+    setFormSubmitting(true);
     try {
-      await signInWithEmailAndPassword(auth, email, password);
-      navigate('/');
-    } catch (err) {
-      setErr(true);
+      await signIn(values.email, values.password);
+      navigate('/profile/');
+    } catch (error: unknown) {
+      console.log(error);
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      if (error?.code === 'auth/user-not-found') {
+        alert('Пользователь не найден');
+      }
+
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      if (error?.code === 'auth/invalid-email') {
+        alert('Неверный логин или пароль');
+      }
+      let errorMessage = 'error.unknown';
+      if (typeof error === 'string') {
+        errorMessage = error.toUpperCase();
+      } else if (error instanceof Error) {
+        errorMessage = error.message;
+      }
+      setFormError(errorMessage);
+      setFormSubmitting(false);
     }
   };
 
@@ -43,34 +67,34 @@ export const Login = () => {
           mt="md"
           mb={50}
         >
-          Welcome back !
-        </Title>
-        <TextInput
-          label="Email address"
-          placeholder="hello@gmail.com"
-          size="md"
-        />
-        <PasswordInput
-          label="Password"
-          placeholder="Your password"
-          mt="md"
-          size="md"
-        />
-        <Checkbox label="Keep me logged in" mt="xl" size="md" />
-        <Button fullWidth mt="xl" size="md">
           Login
-        </Button>
-        <Text align="center" mt="md">
-          Don&apos;t have an account?{' '}
-          <Anchor<'a'>
-            href="#"
-            weight={700}
-            onClick={(event) => event.preventDefault()}
-          >
-            Register
-          </Anchor>
-        </Text>
-        <div>в будущем вывести справа статистику соц сети</div>
+        </Title>
+        <form onSubmit={form.onSubmit((values) => onSubmitForm(values))}>
+          <div style={{ maxWidth: 320, margin: 'auto' }}>
+            <TextInput
+              mt="md"
+              label="Email"
+              placeholder="Email"
+              {...form.getInputProps('email')}
+            />
+            <PasswordInput
+              mt="md"
+              label="Password"
+              placeholder="Password"
+              type="password"
+              {...form.getInputProps('password')}
+            />
+
+            <Group position="center" mt="xl">
+              <Button variant="outline" type="submit">
+                Sign in
+              </Button>
+              <Button onClick={() => navigate('/registration/')}>
+                Register
+              </Button>
+            </Group>
+          </div>
+        </form>
       </Paper>
     </div>
   );

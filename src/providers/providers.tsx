@@ -6,7 +6,7 @@ import {
 } from '@mantine/core';
 import { BrowserRouter } from 'react-router-dom';
 import { ChatContextProvider } from './ChatContex';
-import { AuthContextProvider } from './AuthContext';
+import { AuthProvider } from './AuthContext';
 
 export const RootProvider = ({ children }: any) => {
   const [colorScheme, setColorScheme] = useState<ColorScheme>('dark');
@@ -14,7 +14,7 @@ export const RootProvider = ({ children }: any) => {
     setColorScheme(value || (colorScheme === 'dark' ? 'light' : 'dark'));
 
   return (
-    <AuthContextProvider>
+    <AuthProvider>
       <ChatContextProvider>
         <BrowserRouter>
           <ColorSchemeProvider
@@ -31,6 +31,6 @@ export const RootProvider = ({ children }: any) => {
           </ColorSchemeProvider>
         </BrowserRouter>
       </ChatContextProvider>
-    </AuthContextProvider>
+    </AuthProvider>
   );
 };

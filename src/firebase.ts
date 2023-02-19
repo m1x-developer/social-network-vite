@@ -4,13 +4,12 @@ import { getStorage } from 'firebase/storage';
 import { getFirestore } from 'firebase/firestore';
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyBlLSSh25pGlHuNRUpMlcv5IDoYf53FWnY',
-  authDomain: 'netflix-864fc.firebaseapp.com',
-  databaseURL: 'https://netflix-864fc-default-rtdb.firebaseio.com',
-  projectId: 'netflix-864fc',
-  storageBucket: 'netflix-864fc.appspot.com',
-  messagingSenderId: '240947248648',
-  appId: '1:240947248648:web:84e0f596a484ff7f021bbd',
+  apiKey: 'AIzaSyDSmrtG62NLE8F31ezimLS9D9RNCnfNro0',
+  authDomain: 'social-f8bd3.firebaseapp.com',
+  projectId: 'social-f8bd3',
+  storageBucket: 'social-f8bd3.appspot.com',
+  messagingSenderId: '379125998203',
+  appId: '1:379125998203:web:532fa6cc51ac4ace6fb8de',
 };
 
 // Initialize Firebase

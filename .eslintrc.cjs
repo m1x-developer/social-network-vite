@@ -32,6 +32,7 @@ module.exports = {
         'react/jsx-props-no-spreading': 0,
         'react/require-default-props': 0,
         'jsx-a11y/anchor-is-valid': 0,
-        'react/no-unstable-nested-components': 0
+        'react/no-unstable-nested-components': 0,
+        '@typescript-eslint/no-shadow': 0
     },
 };

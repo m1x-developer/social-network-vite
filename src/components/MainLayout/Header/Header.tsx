@@ -8,11 +8,13 @@ import {
 } from '@mantine/core';
 import { IconMoonStars, IconSun } from '@tabler/icons';
 import { useHeaderStyles } from './header.css';
+import { useAuth } from '../../../providers/AuthContext';
 
 export const HeaderMegaMenu = () => {
   const { classes } = useHeaderStyles();
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
   const dark = colorScheme === 'dark';
+  const { user, logOut } = useAuth();
 
   const ChangeThemeComponent = () => (
     <ActionIcon
@@ -32,8 +34,10 @@ export const HeaderMegaMenu = () => {
           logo
           <Group className={classes.hiddenMobile}>
             <ChangeThemeComponent />
-            <Button variant="default">Log in</Button>
-            <Button>Sign up</Button>
+            <span>{user?.email}</span>
+            <Button variant="default" onClick={() => logOut()}>
+              Log out
+            </Button>
           </Group>
         </Group>
       </Header>

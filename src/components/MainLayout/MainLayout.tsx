@@ -1,10 +1,23 @@
-import { AppShell, useMantineTheme } from '@mantine/core';
+import { AppShell, LoadingOverlay, useMantineTheme } from '@mantine/core';
+import React from 'react';
 import { NavigationBar } from './NavBar/NavBar';
 import { HeaderMegaMenu } from './Header/Header';
 import { FooterSocial } from './Footer/Footer';
+import { useAuth } from '../../providers/AuthContext';
 
 export const MainLayout = ({ children }: any) => {
   const theme = useMantineTheme();
+
+  const { user, isLoading } = useAuth();
+  const isAuth = !!user;
+
+  if (isLoading) {
+    return <LoadingOverlay visible />;
+  }
+
+  if (!isAuth) {
+    return children;
+  }
 
   return (
     <AppShell

@@ -15,7 +15,6 @@ import {
 } from '@tabler/icons';
 import { Link } from 'react-router-dom';
 import { useNavBarStyles } from './NavBar.css';
-import { ProfileCard } from './Profile/Profile';
 
 const data = [
   { icon: IconUser, label: 'My Profile', to: '/profile/' },
@@ -51,10 +50,6 @@ export const NavigationBar = () => {
 
   return (
     <Navbar height="100v" width={{ sm: 300 }} p="md">
-      <ProfileCard
-        avatar="https://sun1-14.userapi.com/s/v1/ig2/r-lnWk5uHE4QQX-WGgvtQknRhjpQR1o2EbaobOjW0Wak_zZkcZ-Z1fNSPQt4gugLHJ1bGSCvziPDVE_CjEM-nYDY.jpg?size=200x200&quality=95&crop=321,96,565,565&ava=1"
-        name="name"
-      />
       <Navbar.Section grow>{links}</Navbar.Section>
 
       <Navbar.Section className={classes.footer}>

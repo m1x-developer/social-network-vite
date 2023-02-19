@@ -11,5 +11,5 @@ export const publicRoutes = [
     path: '/auth',
     element: <Login />,
   },
-  { path: '*', element: <Navigate to="/registration/" /> },
+  { path: '*', element: <Navigate to="/auth" /> },
 ];
