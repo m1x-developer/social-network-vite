@@ -10,7 +10,6 @@ export const AppRoutes = () => {
   const { user } = useAuth();
   // TODO Временно , пока нет авторизации + сделать экран лоадинга
   const isAuth = !!user;
-  console.log(user);
 
   const commonRoutes = [
     { path: '/auth', element: <Login /> },
